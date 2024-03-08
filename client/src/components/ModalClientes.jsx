@@ -28,7 +28,7 @@ const ModalClientes = (props) => {
     >
       <Box sx={style}>
         <FormControl style={{ width: "100%" }}>
-          <form onSubmit={props.edit? props.handleEdit: props.handleCreate}>
+          <form onSubmit={props.edit ? props.handleEdit : props.handleCreate}>
             <Typography
               id="modal-modal-title"
               variant="h6"
@@ -36,7 +36,7 @@ const ModalClientes = (props) => {
               align="center"
               style={{ marginBottom: "25px" }}
             >
-              {props.edit? "Alterar Cliente": "Registrar Cliente"}
+              {props.edit ? "Alterar Cliente" : "Registrar Cliente"}
             </Typography>
             <TextField
               style={{ margin: "5px" }}
@@ -68,10 +68,41 @@ const ModalClientes = (props) => {
               placeholder="Telefone"
               value={props.cliente.telefone}
               onChange={(e) =>
-                props.setCliente((prev) => ({ ...prev, telefone: e.target.value }))
+                props.setCliente((prev) => ({
+                  ...prev,
+                  telefone: e.target.value,
+                }))
               }
               inputProps={{ maxLength: 30 }}
               fullWidth
+              required
+            />
+            <TextField
+              style={{ margin: "5px", width: 140 }}
+              type="number"
+              placeholder="x"
+              value={props.cliente.x}
+              onChange={(e) =>
+                props.setCliente((prev) => ({
+                  ...prev,
+                  x: parseFloat(e.target.value),
+                }))
+              }
+              inputProps={{ maxLength: 30 }}
+              required
+            />
+            <TextField
+              style={{ margin: "5px", width: 140 }}
+              type="number"
+              placeholder="y"
+              value={props.cliente.y}
+              onChange={(e) =>
+                props.setCliente((prev) => ({
+                  ...prev,
+                  y: parseFloat(e.target.value),
+                }))
+              }
+              inputProps={{ maxLength: 30 }}
               required
             />
             <Button
@@ -79,7 +110,7 @@ const ModalClientes = (props) => {
               style={{ marginTop: "25px", width: "100%" }}
               variant="contained"
             >
-              {props.edit? "Alterar": "Registrar"}
+              {props.edit ? "Alterar" : "Registrar"}
             </Button>
           </form>
         </FormControl>

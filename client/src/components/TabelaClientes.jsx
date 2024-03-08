@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 
 //importar componentes do projeto
 import ModalClientes from "./ModalClientes";
+import ModalMap from "./ModalMap";
 
 //compenentes MUI
 import Button from "@mui/material/Button";
@@ -14,18 +15,25 @@ import DeleteIcon from "@mui/icons-material/Delete";
 //fetch
 import api from "../Api";
 
+
 function TabelaClientes() {
   const [rows, setRows] = useState([]);
   const [edit, setEdit] = useState(false);
-  const [open, setOpen] = useState(false);
+  const [openForm, setOpenForm] = useState(false);
+  const [openMap, setOpenMap] = useState(false);
   const [cliente, setCliente] = useState({
     id_cliente: "",
     nome: "",
     email: "",
     telefone: "",
+    x: 0,
+    y: 0,
   });
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  
+  const handleOpen = () => setOpenForm(true);
+  const handleClose = () => setOpenForm(false);
+  const handleOpenMap = () => setOpenMap(true);
+  const handleCloseMap = () => setOpenMap(false);
 
   //função para criar um novo cliente
   let handleCreate = async (e) => {
@@ -36,7 +44,7 @@ function TabelaClientes() {
       .then((response) => {
         console.log(response.data);
         handleRead();
-        setOpen(false);
+        setOpenForm(false);
       })
       .catch((err) => {
         console.error("ops! ocorreu um erro" + err);
@@ -62,7 +70,7 @@ function TabelaClientes() {
       .then((response) => {
         console.log(response.data);
         handleRead();
-        setOpen(false);
+        setOpenForm(false);
       })
       .catch((err) => {
         console.error("ops! ocorreu um erro" + err);
@@ -77,7 +85,20 @@ function TabelaClientes() {
       .then((response) => {
         console.log(response.data);
         handleRead();
-        setOpen(false);
+        setOpenForm(false);
+      })
+      .catch((err) => {
+        console.error("ops! ocorreu um erro" + err);
+      });
+  };
+
+  // função para Gerar Rota
+  const handleRoute = (e) => {
+    e.preventDefault();
+    api
+      .get("/clientes/route")
+      .then((response) => {
+        console.log(response.data);
       })
       .catch((err) => {
         console.error("ops! ocorreu um erro" + err);
@@ -109,14 +130,20 @@ function TabelaClientes() {
                   nome: cellValues.row.nome,
                   email: cellValues.row.email,
                   telefone: cellValues.row.telefone,
+                  x: cellValues.row.x,
+                  y: cellValues.row.y,
                 });
                 setEdit(true);
-                setOpen(true);
+                setOpenForm(true);
               }}
             >
               <EditIcon />
             </IconButton>
-            <IconButton aria-label="Delete item" style={{ color: "#e6493e" }} onClick={() => handleDelete(cellValues.row.id_cliente)}>
+            <IconButton
+              aria-label="Delete item"
+              style={{ color: "#e6493e" }}
+              onClick={() => handleDelete(cellValues.row.id_cliente)}
+            >
               <DeleteIcon />
             </IconButton>
           </div>
@@ -127,6 +154,8 @@ function TabelaClientes() {
     { field: "nome", headerName: "nome", width: 300 },
     { field: "email", headerName: "email", width: 150 },
     { field: "telefone", headerName: "telefone", width: 150 },
+    { field: "x", headerName: "x", width: 50 },
+    { field: "y", headerName: "y", width: 50 },
   ];
 
   return (
@@ -137,13 +166,31 @@ function TabelaClientes() {
           variant="contained"
           onClick={() => {
             {
-              setCliente({ id_cliente: "", nome: "", email: "", telefone: "" });
+              setCliente({
+                id_cliente: "",
+                nome: "",
+                email: "",
+                telefone: 0,
+                x: 0,
+                y: "",
+              });
               setEdit(false);
               handleOpen();
             }
           }}
         >
           Registrar Cliente
+        </Button>
+        <Button
+          style={{ margin: "25px" }}
+          variant="contained"
+          onClick={() => {
+            {
+              handleOpenMap();
+            }
+          }}
+        >
+          Visualizar Rota
         </Button>
       </Box>
       <ModalClientes
@@ -152,11 +199,12 @@ function TabelaClientes() {
         handleRead={handleRead}
         handleEdit={handleEdit}
         handleClose={handleClose}
-        open={open}
+        open={openForm}
         setCliente={setCliente}
         cliente={cliente}
         teste={"aqui"}
       />
+      <ModalMap handleClose={handleCloseMap} open={openMap} />
       <Box
         style={{
           height: 400,
