@@ -16,11 +16,14 @@ import api from "../Api";
 
 function TabelaClientes() {
   const [rows, setRows] = useState([]);
+  const [edit, setEdit] = useState(false);
   const [open, setOpen] = useState(false);
-  const [cliente, setCliente] = useState({ nome: "", email: "", telefone: "" });
-  const [nome, setNome] = useState("");
-  const [email, setEmail] = useState("");
-  const [telefone, setTelefone] = useState("");
+  const [cliente, setCliente] = useState({
+    id_cliente: "",
+    nome: "",
+    email: "",
+    telefone: "",
+  });
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
@@ -50,8 +53,35 @@ function TabelaClientes() {
       });
   };
 
-  const handleEdit = () => {
-    // some action
+  // função para editar um cliente
+  const handleEdit = (e) => {
+    e.preventDefault();
+    console.log(cliente);
+    api
+      .put("/clientes/" + cliente.id_cliente, cliente)
+      .then((response) => {
+        console.log(response.data);
+        handleRead();
+        setOpen(false);
+      })
+      .catch((err) => {
+        console.error("ops! ocorreu um erro" + err);
+      });
+  };
+
+  // função para deletar um cliente
+  const handleDelete = (id_cliente) => {
+    console.log(id_cliente);
+    api
+      .delete("/clientes/" + id_cliente)
+      .then((response) => {
+        console.log(response.data);
+        handleRead();
+        setOpen(false);
+      })
+      .catch((err) => {
+        console.error("ops! ocorreu um erro" + err);
+      });
   };
 
   //inicialização
@@ -69,29 +99,31 @@ function TabelaClientes() {
             className="d-flex justify-content-between align-items-center"
             style={{ cursor: "pointer" }}
           >
+            {/* botão de editar */}
             <IconButton
-              color="secondary"
+              color="primary"
               aria-label="Edit item"
               onClick={() => {
                 setCliente({
+                  id_cliente: cellValues.row.id_cliente,
                   nome: cellValues.row.nome,
                   email: cellValues.row.email,
                   telefone: cellValues.row.telefone,
                 });
+                setEdit(true);
                 setOpen(true);
               }}
             >
               <EditIcon />
             </IconButton>
-            <IconButton
-              aria-label="Delete item"
-            >
+            <IconButton aria-label="Delete item" style={{ color: "#e6493e" }} onClick={() => handleDelete(cellValues.row.id_cliente)}>
               <DeleteIcon />
             </IconButton>
           </div>
         );
       },
     },
+    { field: "id_cliente", headerName: "id", width: 10 },
     { field: "nome", headerName: "nome", width: 300 },
     { field: "email", headerName: "email", width: 150 },
     { field: "telefone", headerName: "telefone", width: 150 },
@@ -105,7 +137,8 @@ function TabelaClientes() {
           variant="contained"
           onClick={() => {
             {
-              setCliente({ nome: "", email: "", telefone: "" });
+              setCliente({ id_cliente: "", nome: "", email: "", telefone: "" });
+              setEdit(false);
               handleOpen();
             }
           }}
@@ -114,8 +147,10 @@ function TabelaClientes() {
         </Button>
       </Box>
       <ModalClientes
+        edit={edit}
         handleCreate={handleCreate}
         handleRead={handleRead}
+        handleEdit={handleEdit}
         handleClose={handleClose}
         open={open}
         setCliente={setCliente}

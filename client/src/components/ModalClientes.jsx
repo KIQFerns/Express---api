@@ -28,7 +28,7 @@ const ModalClientes = (props) => {
     >
       <Box sx={style}>
         <FormControl style={{ width: "100%" }}>
-          <form onSubmit={props.handleCreate}>
+          <form onSubmit={props.edit? props.handleEdit: props.handleCreate}>
             <Typography
               id="modal-modal-title"
               variant="h6"
@@ -36,7 +36,7 @@ const ModalClientes = (props) => {
               align="center"
               style={{ marginBottom: "25px" }}
             >
-              Registrar Cliente
+              {props.edit? "Alterar Cliente": "Registrar Cliente"}
             </Typography>
             <TextField
               style={{ margin: "5px" }}
@@ -46,6 +46,7 @@ const ModalClientes = (props) => {
               onChange={(e) =>
                 props.setCliente((prev) => ({ ...prev, nome: e.target.value }))
               }
+              inputProps={{ maxLength: 50 }}
               fullWidth
               required
             />
@@ -57,6 +58,7 @@ const ModalClientes = (props) => {
               onChange={(e) =>
                 props.setCliente((prev) => ({ ...prev, email: e.target.value }))
               }
+              inputProps={{ maxLength: 30 }}
               fullWidth
               required
             />
@@ -68,6 +70,7 @@ const ModalClientes = (props) => {
               onChange={(e) =>
                 props.setCliente((prev) => ({ ...prev, telefone: e.target.value }))
               }
+              inputProps={{ maxLength: 30 }}
               fullWidth
               required
             />
@@ -76,7 +79,7 @@ const ModalClientes = (props) => {
               style={{ marginTop: "25px", width: "100%" }}
               variant="contained"
             >
-              Criar
+              {props.edit? "Alterar": "Registrar"}
             </Button>
           </form>
         </FormControl>
