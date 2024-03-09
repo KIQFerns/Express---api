@@ -1,7 +1,3 @@
-CREATE DATABASE desafio;
-
--- c desafio;
-
 -- public.clientes definition
 
 -- Drop table
