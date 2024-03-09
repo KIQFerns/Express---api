@@ -159,7 +159,7 @@ function TabelaClientes() {
 
   return (
     <>
-      <Box style={{ marginRight: "auto" }}>
+      <Box style={{ marginLeft: "auto", marginRight: "auto" }}>
         <Button
           style={{ margin: "25px" }}
           variant="contained"
@@ -208,7 +208,7 @@ function TabelaClientes() {
       <Box
         style={{
           height: 400,
-          marginLeft: "25px",
+          marginLeft: "auto",
           marginRight: "auto",
           backgroundColor: "white",
         }}
