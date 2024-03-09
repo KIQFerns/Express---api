@@ -15,7 +15,6 @@ import DeleteIcon from "@mui/icons-material/Delete";
 //fetch
 import api from "../Api";
 
-
 function TabelaClientes() {
   const [rows, setRows] = useState([]);
   const [route, setRoute] = useState([]);
@@ -205,7 +204,7 @@ function TabelaClientes() {
         cliente={cliente}
         teste={"aqui"}
       />
-      <ModalMap handleClose={handleCloseMap} open={openMap} route= {route}/>
+      <ModalMap handleClose={handleCloseMap} open={openMap} route={route} />
       <Box
         style={{
           height: 400,
@@ -215,6 +214,7 @@ function TabelaClientes() {
         }}
       >
         <DataGrid
+          disableRowSelectionOnClick
           getRowId={(row) => row.id_cliente}
           rows={rows}
           columns={columns}
