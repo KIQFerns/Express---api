@@ -2,12 +2,12 @@
 
 
 <h1 align="center">
-   Teste de Programação Desenvolvedor Facilita Jurídico
+  Desafio Facilita Jurídico
 </h1>
 <h1>
   :clipboard: Projeto:
 </h1>
-<p>Uma API para listar informações da API SpaceX-API.</p>
+<p>Teste de Programação Desenvolvedor Facilita Jurídico</p>
 <h1>:book:Tecnologias:</h1>
 <ul>
 <li> Node.js v20.11.1 </li>
