@@ -68,9 +68,6 @@ const shortRoute  = (request, response) => {
     let clientes = results.rows;
     const { route, distance, order } = findShortestRoute(clientes);
     response.status(200).json(order);
-
-
-    response.status(200).json(ordem)
   })
 }
 

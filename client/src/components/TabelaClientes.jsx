@@ -18,6 +18,7 @@ import api from "../Api";
 
 function TabelaClientes() {
   const [rows, setRows] = useState([]);
+  const [route, setRoute] = useState([]);
   const [edit, setEdit] = useState(false);
   const [openForm, setOpenForm] = useState(false);
   const [openMap, setOpenMap] = useState(false);
@@ -29,7 +30,7 @@ function TabelaClientes() {
     x: 0,
     y: 0,
   });
-  
+
   const handleOpen = () => setOpenForm(true);
   const handleClose = () => setOpenForm(false);
   const handleOpenMap = () => setOpenMap(true);
@@ -93,12 +94,11 @@ function TabelaClientes() {
   };
 
   // função para Gerar Rota
-  const handleRoute = (e) => {
-    e.preventDefault();
+  const handleRoute = () => {
     api
       .get("/clientes/route")
       .then((response) => {
-        console.log(response.data);
+        setRoute(response.data);
       })
       .catch((err) => {
         console.error("ops! ocorreu um erro" + err);
@@ -170,9 +170,9 @@ function TabelaClientes() {
                 id_cliente: "",
                 nome: "",
                 email: "",
-                telefone: 0,
+                telefone: "",
                 x: 0,
-                y: "",
+                y: 0,
               });
               setEdit(false);
               handleOpen();
@@ -186,6 +186,7 @@ function TabelaClientes() {
           variant="contained"
           onClick={() => {
             {
+              handleRoute();
               handleOpenMap();
             }
           }}
@@ -204,7 +205,7 @@ function TabelaClientes() {
         cliente={cliente}
         teste={"aqui"}
       />
-      <ModalMap handleClose={handleCloseMap} open={openMap} />
+      <ModalMap handleClose={handleCloseMap} open={openMap} route= {route}/>
       <Box
         style={{
           height: 400,

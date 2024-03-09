@@ -50,7 +50,7 @@ function findShortestRoute(clients) {
       if (routeDistance < shortestDistance) {
           shortestDistance = routeDistance;
           bestRoute = route;
-          bestOrder = route.map(({ id_cliente, nome }) => ({ id_cliente, nome }));
+          bestOrder = route.map(({ id_cliente, nome, x, y }) => ({ id_cliente, nome, x, y }));
       }
   }
   return { route: bestRoute, distance: shortestDistance, order: bestOrder };
