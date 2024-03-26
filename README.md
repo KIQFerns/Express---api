@@ -7,7 +7,7 @@
 <h1>
   :clipboard: Projeto:
 </h1>
-<p>Teste de Programação Desenvolvedor Facilita Jurídico</p>
+<p>Api Básica com CRUD de clientes</p>
 <h1>:book:Tecnologias:</h1>
 <ul>
 <li> Node.js v20.11.1 </li>
