@@ -7,7 +7,7 @@
 <h1>
   :clipboard: Projeto:
 </h1>
-<p>Api Básica com CRUD de clientes</p>
+<p>Api Básica + Front-ENd com CRUD de clientes</p>
 <h1>:book:Tecnologias:</h1>
 <ul>
 <li> Node.js v20.11.1 </li>
