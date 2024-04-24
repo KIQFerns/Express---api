@@ -1,21 +1,16 @@
 
+## Description
 
+Api Básica + Front-ENd com CRUD de clientes
 
-<h1 align="center">
-  Node Express API
-</h1>
-<h1>
-  :clipboard: Projeto:
-</h1>
-<p>Api Básica + Front-ENd com CRUD de clientes</p>
-<h1>:book:Tecnologias:</h1>
-<ul>
-<li> Node.js v20.11.1 </li>
-<li> React.js ^18.2.0 </li>
-<li> POSTGRES 16.2</li>
+## Tecnology
 
-</ul>
-<h2>:information_source: Como usar: </h2>
-<p> O Arquivo DDL está ná raiz do projeto, </p>
-<p> Configure o Arquivo node-api/.ENV, com suas credenciais do Banco de Dados </p>
-<p> Execute npm install e após npm start nas pastas api e client para instalar todas as dependências para executar este projeto. </p>
+- Node.js v20.11.1
+ - React.js ^18.2.0
+- POSTGRES 16.2
+
+## Installation
+
+O Arquivo DDL está ná raiz do projeto, 
+ Configure o Arquivo node-api/.ENV, com suas credenciais do Banco de Dados 
+ Execute npm install e após npm start nas pastas api e client para instalar todas as dependências para executar este projeto. 
